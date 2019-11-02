@@ -1,0 +1,23 @@
+# Creating a CronJob in Linux Style
+# Adding activeDeadlineSeconds to make sure the container stops after the specified time
+
+# $ kubectl create -f cronjob
+# $ kubectl describe cronjobs.batch sleepy
+
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: sleepy
+spec: 
+  schedule: "*/2 * * * *"
+  jobTemplate: 
+    spec:
+      activeDeadlineSeconds: 10 
+      template:
+        spec:
+      containers: 
+      - name: resting
+        image: busybox
+        command: ["/bin/sleep"]
+        args: ["3"]
+      restartPolicy: Never
