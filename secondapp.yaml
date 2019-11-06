@@ -14,8 +14,12 @@ spec:
       securityContext:
         runAsUser: 2000
         allowPrivilegeEscalation: false
+        capabilities:
+          add: ["NET_ADMIN", "SYS_TIME"]
 
 # kubectl create -f second.yaml
 # kubectl exec -it secondapp -- sh
 # $ ps aux
-# 4grep Cap /proc/1/status
+# $ grep Cap /proc/1/status
+# use the capability shell wrapper tool, the capsh command to decode the output
+# capsh --decode=00000000a80425fb
